@@ -21,3 +21,6 @@ target_link_libraries(simple_thread -pthread)
 
 add_executable(simple_thread_promise src/simple_thread_promise.cpp)
 target_link_libraries(simple_thread_promise -pthread)
+
+add_executable(mutex src/mutex.cpp)
+target_link_libraries(mutex -pthread)

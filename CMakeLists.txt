@@ -16,6 +16,8 @@ if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
 endif()
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
 
-
 add_executable(simple_thread src/simple_thread.cpp)
 target_link_libraries(simple_thread -pthread)
+
+add_executable(simple_thread_promise src/simple_thread_promise.cpp)
+target_link_libraries(simple_thread_promise -pthread)

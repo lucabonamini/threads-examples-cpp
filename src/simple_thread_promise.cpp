@@ -4,12 +4,16 @@
 #include <algorithm>
 #include <numeric>
 #include <iostream>
+#include <functional>  // std::ref
+#include <future>      // std::promise, std::future
 
 const int n = 100000;
 
 int main() {
 
-    double mean = 0;
+    std::promise<double> meanProm;
+    std::future<double> meanRes = meanProm.get_future();
+
     std::random_device rnd;
     std::mt19937 mt {rnd()};
     std::uniform_real_distribution<double> dist{0,n};
@@ -20,17 +24,15 @@ int main() {
         return dist(mt);
     });
 
-    // Calc vector mean in a separate thread
-    std::thread thread([&mean,&vec] {
+    // Calc vector' mean in a separate thread
+    std::thread thread([&meanProm,&vec] {
         auto sum = std::accumulate(vec.begin(),vec.end(),0.0);
-        mean = sum/vec.size();
+        meanProm.set_value(sum/vec.size());
     });
-
-    std::cout << "Waiting for thread execution...." << std::endl;
 
     thread.join();
 
-    std::cout << "Mean: " << mean << std::endl;
+    std::cout << "Mean: " << meanRes.get() << std::endl;
 
     return 0;
 }

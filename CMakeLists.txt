@@ -24,3 +24,6 @@ target_link_libraries(simple_thread_promise -pthread)
 
 add_executable(mutex src/mutex.cpp)
 target_link_libraries(mutex -pthread)
+
+add_executable(producer_consumer_queue src/producer_consumer_queue.cpp)
+target_link_libraries(producer_consumer_queue -pthread)

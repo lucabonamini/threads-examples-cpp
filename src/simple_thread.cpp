@@ -20,7 +20,7 @@ int main() {
         return dist(mt);
     });
 
-    // Calc vector' mean in a separate thread
+    // Calc vector mean in a separate thread
     std::thread thread([&mean,&vec] {
         auto sum = std::accumulate(vec.begin(),vec.end(),0.0);
         mean = sum/vec.size();
